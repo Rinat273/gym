@@ -10,37 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_23_232533) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_29_132134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "exercise_types", force: :cascade do |t|
-    t.text "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "exercises", force: :cascade do |t|
-    t.bigint "train_plan_id", null: false
+    t.bigint "train_block_id", null: false
     t.integer "approach_number"
     t.integer "repeats"
     t.integer "mass"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["train_plan_id"], name: "index_exercises_on_train_plan_id"
+    t.index ["train_block_id"], name: "index_exercises_on_train_block_id"
   end
 
-  create_table "train_plans", force: :cascade do |t|
-    t.bigint "train_type_id", null: false
-    t.bigint "exercise_type_id", null: false
+  create_table "train_blocks", force: :cascade do |t|
+    t.bigint "train_plan_id", null: false
+    t.text "title"
     t.integer "sequence_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exercise_type_id"], name: "index_train_plans_on_exercise_type_id"
-    t.index ["train_type_id"], name: "index_train_plans_on_train_type_id"
+    t.index ["train_plan_id"], name: "index_train_blocks_on_train_plan_id"
   end
 
-  create_table "train_types", force: :cascade do |t|
+  create_table "train_plans", force: :cascade do |t|
     t.text "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -48,7 +41,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_232533) do
 
   create_table "trains", force: :cascade do |t|
     t.bigint "train_plan_id", null: false
-    t.integer "current_step_number", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["train_plan_id"], name: "index_trains_on_train_plan_id"
@@ -63,9 +55,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_232533) do
     t.index ["train_id"], name: "index_workouts_on_train_id"
   end
 
-  add_foreign_key "exercises", "train_plans"
-  add_foreign_key "train_plans", "exercise_types"
-  add_foreign_key "train_plans", "train_types"
+  add_foreign_key "exercises", "train_blocks"
+  add_foreign_key "train_blocks", "train_plans"
   add_foreign_key "trains", "train_plans"
   add_foreign_key "workouts", "exercises"
   add_foreign_key "workouts", "trains"

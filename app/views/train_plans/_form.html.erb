@@ -1,0 +1,22 @@
+<%= form_with(model: train_plan) do |form| %>
+  <% if train_plan.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(train_plan.errors.count, "error") %> prohibited this train_plan from being saved:</h2>
+
+      <ul>
+        <% train_plan.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_area :title %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

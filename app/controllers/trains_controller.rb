@@ -22,15 +22,26 @@ class TrainsController < ApplicationController
   # POST /trains or /trains.json
   def create
     @train = Train.new(train_params)
+    @train.save
+    redirect_to train_current_workout_url(train_id: @train.id)
+  end
 
-    respond_to do |format|
-      if @train.save
-        format.html { redirect_to train_url(@train), notice: "Train was successfully created." }
-        format.json { render :show, status: :created, location: @train }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @train.errors, status: :unprocessable_entity }
-      end
+  def current_workout
+    train = Train.find(params[:train_id])
+    @exercise = train.current_exercise
+    @exercise_name = train.show_exercise
+    @train_id = train.id
+  end
+
+  def done
+    train = Train.find(params[:train_id])
+
+    if train.done?
+      redirect_to action: :new
+    else
+      train.finish_exercise
+      train.done!
+      redirect_to action: :current_workout
     end
   end
 

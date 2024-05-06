@@ -2,6 +2,8 @@
 
 <h1>Trains</h1>
 
+<%= link_to "New train", new_train_path %>
+
 <div id="trains">
   <% @trains.each do |train| %>
     <%= render train %>

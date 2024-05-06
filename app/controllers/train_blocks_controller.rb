@@ -3,7 +3,7 @@ class TrainBlocksController < ApplicationController
 
   # GET /train_blocks or /train_blocks.json
   def index
-    @train_blocks = TrainBlock.all
+    @train_blocks = TrainBlock.includes(:train_plan)
   end
 
   # GET /train_blocks/1 or /train_blocks/1.json

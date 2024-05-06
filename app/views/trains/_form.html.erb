@@ -12,8 +12,14 @@
   <% end %>
 
   <div>
+    <h5>
+      Выберете TrainPlan:
+    </h5>
+  </div>
+
+  <div>
     <%= form.label :train_plan_id, style: "display: block" %>
-    <%= form.text_field :train_plan_id %>
+    <%= form.collection_select :train_plan_id, TrainPlan.all, :id, :name_with_initial, prompt: true %>
   </div>
 
   <div>

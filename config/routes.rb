@@ -7,8 +7,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :trains do 
+    post 'done', action: :done
+    get 'current_workout', action: :current_workout
+    
+  end
+  
   resources :workouts
-  resources :trains
   resources :exercises
   resources :train_blocks
   resources :train_plans

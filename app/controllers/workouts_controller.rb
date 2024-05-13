@@ -22,16 +22,18 @@ class WorkoutsController < ApplicationController
   # POST /workouts or /workouts.json
   def create
     @workout = Workout.new(workout_params)
-
-    respond_to do |format|
-      if @workout.save
-        format.html { redirect_to workout_url(@workout), notice: "Workout was successfully created." }
-        format.json { render :show, status: :created, location: @workout }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @workout.errors, status: :unprocessable_entity }
-      end
-    end
+    @workout.save
+    # respond_to do |format|
+    #   if @workout.save
+    #     format.html { redirect_to workout_url(@workout), notice: "Workout was successfully created." }
+    #     format.json { render :show, status: :created, location: @workout }
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #     format.json { render json: @workout.errors, status: :unprocessable_entity }
+    #   end
+    # end
+    # redirect_to train_current_workout_url(train_id: @workout.train_id)
+    # redirect_to controller: 'trains', action: :current_workout, train_id: @workout.train_id
   end
 
   # PATCH/PUT /workouts/1 or /workouts/1.json

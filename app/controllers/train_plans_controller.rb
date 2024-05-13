@@ -4,6 +4,7 @@ class TrainPlansController < ApplicationController
   # GET /train_plans or /train_plans.json
   def index
     @train_plans = TrainPlan.all
+
   end
 
   # GET /train_plans/1 or /train_plans/1.json

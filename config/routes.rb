@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+devise_for :users
   namespace :api do
     namespace :v1 do
       resources :trains do
@@ -6,6 +7,9 @@ Rails.application.routes.draw do
       end
     end
   end
+
+      # get '/users/sign_out' => 'devise/sessions#destroy'
+
 
   resources :trains do 
     post 'done', action: :done
@@ -24,5 +28,10 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "home#index"
+
+  # devise_for :users do
+  #   get '/users/sign_out' => 'devise/sessions#destroy'
+  # end
+  
 end

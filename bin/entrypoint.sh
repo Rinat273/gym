@@ -6,6 +6,7 @@ set -e
 bundle exec rake db:create
 bundle exec rake db:migrate
 # bundle exec rake db:seed
+bundle exec bundle install
 
 rm -f /usr/src/app/tmp/pids/server.pid
 
